@@ -2,6 +2,12 @@
 
 EpiExtract is a tool in development that searches PubMed for observational studies on an epidemiologic question, reads the open-access full text, and extracts each study's design, descriptive statistics (Table 1), effect estimates (OR, RR, or HR with 95% CIs, Table 2), and adjustment sets into one structured dataset. It also checks each paper for retractions. This repository currently holds the unit tests for one of its atomic protocols: **Rank by meaning**, which uses [Sentence-BERT](https://www.sbert.net) to rank PubMed abstracts by how closely they match the research question.
 
+## Wire diagram
+
+   Rank by meaning sits between the PubMed search and Gemma's abstract screening: it ranks the retrieved abstracts by similarity to the research question so only the most relevant ones go on to screening.
+
+   ![Workflow wire diagram](docs/wire_diagram.png)
+
 ## Contract
 
 | | Type | Description |
@@ -40,7 +46,7 @@ The model (about 90 MB) downloads from Hugging Face on the first run.
 ## Running the tests
 
 ```bash
-pytest -v
+pytest python -m pytest -v
 ```
 
 Expected result: **52 passed, 3 xfailed** (one FutureWarning about a renamed method is expected).
